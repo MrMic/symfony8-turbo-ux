@@ -12,13 +12,14 @@ final class PagesController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function home(): Response
     {
-        return $this->render('pages/home.html.twig', );
+        return $this->render('pages/home.html.twig',);
     }
 
     // ______________________________________________________________________
     #[Route('/about', name: 'app_about')]
     public function about(): Response
     {
-        return $this->render('pages/about.html.twig', );
+        sleep(1);
+        return $this->render('pages/about.html.twig',);
     }
 }

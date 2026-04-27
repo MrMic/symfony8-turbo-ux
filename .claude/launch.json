@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Symfony Dev Server",
+      "runtimeExecutable": "symfony",
+      "runtimeArgs": ["server:start", "--no-tls", "--allow-all-ip", "--port=8001"],
+      "autoPort": false,
+      "port": 8001
+    }
+  ]
+}
