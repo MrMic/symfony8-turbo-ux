@@ -51,8 +51,6 @@ final class MessagesController extends AbstractController
                 Response::HTTP_OK,
                 ["Content-Type" => "text/vnd.turbo-stream.html"],
             );
-
-            /* $request->setRequestFormat(TurboBundle::STREAM_FORMAT); */
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
