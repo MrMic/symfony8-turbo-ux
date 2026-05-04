@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\UX\Turbo\TurboBundle;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -31,6 +32,28 @@ final class MessagesController extends AbstractController
             ->getForm();
 
         $form->handleRequest($request);
+
+        // INFO: 🔥 The magic happens here!
+        // - If the form is submitted, valid, and the request format is
+        // Turbo Stream, we return a Turbo Stream response with the rendered success template.
+        // - Otherwise, if the form is submitted and valid, we add a flash message and redirect to
+        // the home page.
+        // - If the form is not valid, we render the form with an appropriate HTTP status code.
+        if (
+            $form->isSubmitted() &&
+            $form->isValid() &&
+            $request->getPreferredFormat() === TurboBundle::STREAM_FORMAT
+        ) {
+            return new Response(
+                $this->renderView("messages/success.stream.html.twig", [
+                    "name" => $form->get("name")->getData(),
+                ]),
+                Response::HTTP_OK,
+                ["Content-Type" => "text/vnd.turbo-stream.html"],
+            );
+
+            /* $request->setRequestFormat(TurboBundle::STREAM_FORMAT); */
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             dump("Sending mail...");
