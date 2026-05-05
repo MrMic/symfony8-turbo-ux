@@ -39,6 +39,10 @@ final class MessagesController extends AbstractController
         // - Otherwise, if the form is submitted and valid, we add a flash message and redirect to
         // the home page.
         // - If the form is not valid, we render the form with an appropriate HTTP status code.
+
+        //          ╒═════════════════════════════════════════════════════════╕
+        //                       submitted & valid & turbo stream
+        //          └─────────────────────────────────────────────────────────┘
         if (
             $form->isSubmitted() &&
             $form->isValid() &&
@@ -53,6 +57,9 @@ final class MessagesController extends AbstractController
             );
         }
 
+        //          ╒═════════════════════════════════════════════════════════╕
+        //                               submitted & valid
+        //          └─────────────────────────────────────────────────────────┘
         if ($form->isSubmitted() && $form->isValid()) {
             dump("Sending mail...");
 
@@ -64,12 +71,13 @@ final class MessagesController extends AbstractController
             );
         }
 
+        //          ╒═════════════════════════════════════════════════════════╕
+        //                                    render
+        //          └─────────────────────────────────────────────────────────┘
         return $this->render(
             "messages/new.html.twig",
-            [
-                "form" => $form->createView(),
-            ],
-            $form->isSubmitted() && !$form->isValid()
+            ["form" => $form->createView()],
+            $form->isSubmitted()
                 ? new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
                 : null,
         );
