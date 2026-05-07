@@ -6,13 +6,9 @@
 
     <h1>Contact</h1>
     <div id="contact">
-      {{ form_start(form) }}
-        {{ form_row(form.name, {'attr': {'placeholder': 'Your name' }}) }}
-        {{ form_row(form.email, {'attr': {'placeholder': 'Your email' }}) }}
-        {{ form_row(form.message, {'attr': {'placeholder': 'Your message...' }}) }}
-        <button type="submit"
-                formnovalidate>Send</button>
-      {{ form_end(form) }}
+
+      {% include "messages/_form.html.twig" %}
+
     </div>
 
   {% endblock %}
