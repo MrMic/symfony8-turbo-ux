@@ -2,6 +2,14 @@
 
 {% block title 'Contact' %}
 
+  {% block meta %}
+
+    <meta name="turbo-cache-control"
+          content="no-preview">
+    <!-- content="no-cache"> -->
+
+  {% endblock %}
+
   {% block body %}
 
     <h1>Contact</h1>
@@ -10,5 +18,24 @@
       {% include "messages/_form.html.twig" %}
 
     </div>
+
+  {% endblock %}
+
+  {% block javascripts %}
+
+    {{ parent() }}
+    <script>
+        // INFO: 🚩 TURBO : Nettoyage du DOM avant la mise en cache de la page
+        // ( Cf : https://turbo.hotwired.dev/handbook/drive#caching )
+
+        // WARN: ⚠️ Utilisation de la balise meta "turbo-cache-control" avec la valeur
+        //"no-cache" pour empêcher la mise en cache de la page par Turbo, ce qui garantit
+        // que les messages d'alerte ne seront pas conservés lors de la navigation.
+
+        // document.addEventListener('turbo:before-cache', function() {
+        //     document.querySelectorAll('.alert-success').forEach(el => el.remove());
+        //     document.querySelectorAll('div#contact form > div > ul').forEach(el => el.remove());
+        // });
+    </script>
 
   {% endblock %}
