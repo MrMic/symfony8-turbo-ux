@@ -1,3 +1,9 @@
 body {
     background-color: skyblue;
 }
+
+.turbo-progress-bar {
+    height: 5px;
+    /* background-color: orange; */
+    background-color: blueviolet;
+}
